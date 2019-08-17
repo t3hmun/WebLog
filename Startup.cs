@@ -1,4 +1,3 @@
-
 namespace t3hmun.WLog
 {
     using Microsoft.AspNetCore.Builder;
@@ -6,7 +5,7 @@ namespace t3hmun.WLog
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
- 
+
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
