@@ -1,4 +1,4 @@
-namespace t3hmun.WLog
+namespace t3hmun.WLog.Web
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -19,6 +19,8 @@ namespace t3hmun.WLog
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+            
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

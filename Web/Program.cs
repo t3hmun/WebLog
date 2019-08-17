@@ -1,4 +1,4 @@
-namespace t3hmun.WLog
+namespace t3hmun.WLog.Web
 {
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Hosting;
