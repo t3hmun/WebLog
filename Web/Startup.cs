@@ -5,11 +5,17 @@ namespace t3hmun.WLog.Web
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
 
+    using t3hmun.WLog.Web.Model;
+    using t3hmun.WLog.Web.Pages;
+
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddRazorPages().AddRazorPagesOptions(options =>
+            {
+                options.Conventions.AddPageRoute($"/{BaseModel.ModelName(typeof(HomeModel))}", "");
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
