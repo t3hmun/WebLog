@@ -1,7 +1,7 @@
 namespace t3hmun.WLog.Web.Helpers
 {
     using System.Collections.Generic;
-    using System.Diagnostics;
+
     public static class StringExtensions
     {
         ///<summary>Add spaces before capital letters except for in acronyms, next to punctuation or existing preceding whitespace. 
@@ -25,9 +25,10 @@ namespace t3hmun.WLog.Web.Helpers
                     {
                         result.Add(' ');
                     }
-                    else if(i != camelText.Length - 1 && (char.IsUpper(previous) && char.IsLower(camelText[i+1])))
+                    else if (i != camelText.Length - 1 && char.IsUpper(previous))
                     {
-                        result.Add(' ');
+                        var next = camelText[i + 1];
+                        if (char.IsLower(next) || char.IsDigit(next)) result.Add(' ');
                     }
                 }
 
