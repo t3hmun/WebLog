@@ -4,16 +4,28 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <environment include="Development">
+    <link rel="stylesheet" href="~/gen/site.css" />
+    </environment>
+    <environment exclude="Development">
+    <link rel="stylesheet" href="~/gen/site.min.css" />
+    </environment>
+    
     <title>@Model.Title</title>
 </head>
 <body>
-    <nav>
-        <span class="site-header">t3hmun</span>
+    <h1>t3hmun</h1>
+    <nav class="site-nav">
         [
         @for(var i = 0; i< Model.Menu.Length; i++)
         {
             var menuItem = Model.Menu[i];    
-            <span class="menu-item"><a asp-page="@menuItem.AspLink">@menuItem.Title</a></span>
+            if(menuItem.AspLink != null){
+                <span class="menu-item"><a asp-page="@menuItem.AspLink">@menuItem.Title</a></span>
+            }
+            if(menuItem.Link != null){
+                <span class="menu-item"><a href="@menuItem.Link">@menuItem.Title</a></span>
+            }
             if(i != Model.Menu.Length -1) 
             {
                 <span class="menu-delimiter"> | </span>
@@ -21,6 +33,8 @@
         }
         ]
     </nav>
-@RenderBody()
+    <main>
+    @RenderBody()
+    </main>
 </body>
-</html>
+</html> 

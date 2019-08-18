@@ -18,6 +18,7 @@ namespace t3hmun.WLog.Web.Model
             Menu = new MenuItem[]{
                 new MenuItem(typeof(HomeModel)),
                 new MenuItem(typeof(ErrorModel)),
+                new MenuItem("GitHub", "https://wwww.github.com/t3hmun")
             };
         }
 

@@ -1,0 +1,459 @@
+// _style.scss written by t3hmun (Manish Parekh, t3hmun at gmail dot com)
+//
+// License:
+// 
+// Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+// http://creativecommons.org/licenses/by-sa/4.0/ 
+//
+
+// I write a lot of comments in here.
+// Makes updating possible when I come back to this in years time when HTML5 is obsolete and it needs updating for the mind-machine interface.
+// Also useful for other people who want to understand and modify this for their own purposes.
+// Modifying other people themes is rarely fun or good learning.
+// People assume that the reasons are obvious, but CSS cant self-document as much as code.
+// CSS retains almost no context for figuring out why it was done.
+// I'm also not afraid to document a bad reasoning, hopefully someone will correctly me if there is any.
+// I hope this is nice to work on, enjoy.
+
+// All comments are single line and not multiple because only single line are automatically removed (they make no sense after processing).
+
+// Colours and Sizes
+// =================
+// No colours or sizes are directly defined in this file.
+// The are all inserted via variables defined in the main scss file.
+// This ensures easy tweaking of colour and size style.
+// Also aids consistency in colour and style (helps resist colour and size proliferation).
+// 
+// WARNING: All colour variables are spelt in British English (not American color).
+// I find myself compelled to write in British English where possible, common sense be damned.
+
+// A note on Margins and Padding for the Gutter
+// ============================================
+// In most elements the $vspace is used as the top-bottom margin.
+// $vspace is based off the line-height to create a consistent vertical rhythm.
+// This works well as the margins overlap and create a consistent vertical gap between all elements.
+// The left-right margin is mostly auto, this is used to centre the blocks in the screen.
+// This means the gutter must be enforced using $gutter as left-right padding.
+// If the gutter is not enforced text can end up squished against the sides of the screen on smaller devices / windows.
+
+// A note on Max-Widths
+// ====================
+// There are three defined widths:
+// - $reading-width 
+//   - The smallest width
+//   - Intended for reading solid text
+// - $content-width 
+//   - The with restricting all content
+//   - Headings are aligned to the left of it creating a scannable document outline effect on wider screens. 
+//   - Code fills it because code requires long un-interrupted lines.
+//   - Not infinite because some screens are very wide and the width disparity would be disruptive to the flow.
+// - $other-text-width
+//   - A compromise between the other two widths
+//   - Used for elements that could benefit from the extra space
+//   - Lists are more legible on longer lines that fit an entire line (only code is suitable for super long lines however).
+//   - Blockquotes and lists need extra space for their unique styling.
+// 
+// All content is placed in a block of one of these sizes.
+// All blocks are centred so that they flow to each other properly. 
+// 
+// These are maximums, there is no minimum.
+// As a result all content flows to accommodate smooth reading in smaller screens (without shrinking text).
+
+body {
+    background: $background-colour;
+    color: $text-colour;
+    font-size: $base;
+    font-family: $sans-serif-fonts;
+
+    // Auto margin to centre the body.
+    // This means padding will have to be added manually to maintain a gutter.
+    margin: auto;
+
+    // Apply maximum width to all content.
+    max-width: $content-width;
+
+    // Universal line height, helps maintain consistent spacing throughout the page.
+    // This should scale up when the user zooms in.
+    // Large text sizes may need extra line spacing, but this spacing should be generous enough for most headers.
+    line-height: $line-height;
+}
+
+pre, code {
+    font-family: $monospace-fonts
+}
+
+// Assuming that most p blocks are for pure text.
+// p blocks in other situations have extra CSS to redefine the style.
+p {
+    // Hard reading requires a narrow width.
+    // Also allows text to squish to smaller screens.
+    max-width: $reading-width;
+
+    // Block display with auto margins centres the block in the screen.
+    // Vertical margins to space elements.
+    // Add padding to maintain a gutter.
+    display: block;
+    margin: $vspace auto;
+    padding: 0 $gutter;
+
+    code {
+        // Separate colour to differentiate it from the normal text.
+        color: $subtle-fore-colour;
+
+        // `inline-block` helps prevent line breaks unless absolutely necessary (line breaks can obfuscate spaces).
+        // Line breaks will only occur if the line is too long to fit inside the page-width.
+        display: inline-block;
+
+        // No border or background, that would break the flow of reading; this is in-line code, meant to be read as part of a sentence.
+   
+    }
+}
+
+// Set the basic common appearance between other-text elements.
+ol, ul, blockquote, dl {
+    // Wider than the reading width, but not excessively wide.
+    max-width: $other-text-width;
+
+    // Block display with auto margins centres the block in the screen.
+    // Vertical margins to space elements.
+    // Add padding to maintain a gutter.
+    display: block;
+    margin: $vspace auto;
+    padding: 0 $gutter;
+
+    // These elements have an unusual width, so they require some kind of box to demarcate the space they are mean to consume.
+    background-color: $subtle-back-colour;
+
+    // Reset p to fill the containing element instead of constricting itself to $reading-width.
+    p {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+blockquote {
+    // A chunky line on the left side to denote blockquotes.
+    border-left: solid $blockquote-side-line $medium-colour;
+
+    // The border increases the width, so it must be shrunk by that much.
+    max-width: $other-text-width - $blockquote-side-line;
+
+    blockquote {
+        margin: 0 $gutter;
+    }
+}
+
+ul, ol {
+    // Block display with auto margins centres the block in the screen.
+    // Vertical margins to space elements.
+    // Add padding to maintain a gutter.
+    display: block;
+    margin: $vspace auto;
+    padding: 0 $gutter 0 $bullet-padding;
+
+    // Make adjustments for the $gutter that other elements have and $bullet-padded that lists have.
+    max-width: $other-text-width - $bullet-padding + $gutter;
+
+    ul, ol {
+        // Sub-lists only require extra left indent, no other spacing (otherwise the flow is disrupted).
+        padding: 0 $bullet-padding;
+        margin: 0;
+    }
+}
+
+// Styles for unordered list hierarchies.
+ul {
+    // The bullet point is placed inside the padding.
+    list-style: disc inside none;
+
+    ul {
+        // New kind of bullet for level 2.
+        list-style: circle inside none;
+
+        ul {
+            // New kind of bullet for level 3.
+            list-style: square inside none;
+        }
+    }
+
+    ol {
+        // Ordered sublists use letters.
+        list-style: lower-latin inside;
+
+        ol {
+            // Ordered sub-sublists use roman-numerals.
+            list-style: lower-roman inside;
+        }
+    }
+}
+
+// Styles for ordered list hierarchies.
+ol {
+    list-style: decimal inside;
+
+    ol {
+        // Ordered sublists use letters.
+        list-style: lower-latin inside;
+
+        ol {
+            // Ordered sub-sublists use roman-numerals.
+            list-style: lower-roman inside;
+        }
+    }
+
+    ul {
+        // New kind of bullet for level 2.
+        list-style: circle inside none;
+
+        ul {
+            // New kind of bullet for level 3.
+            list-style: square inside none;
+        }
+    }
+}
+
+// Most of the styling for pre is done by the syntax stylesheet.
+pre {
+    // Block display with auto margins centres the block in the screen.
+    // Vertical margins to space elements.
+    // Add padding to maintain a gutter.
+    font-family: $monospace-fonts;
+    display: block;
+    margin: $vspace auto;
+    padding: 0 $gutter;
+}
+
+h1 {
+    font-size: $h1size;
+}
+
+h2 {
+    font-size: $h2size;
+}
+
+h3 {
+    font-size: $h3size;
+}
+
+h4 {
+    font-size: $h4size;
+}
+
+h5 {
+    font-size: $h5size;
+}
+
+h6 {
+    font-size: $h6size;
+}
+
+h1 {
+    color: $h1colour;
+}
+
+h2 {
+    color: $h2colour;
+}
+
+h3 {
+    color: $h3colour;
+}
+
+h4 {
+    color: $h4colour;
+}
+
+h5 {
+    color: $h5colour;
+}
+
+h6 {
+    color: $h6colour;
+}
+
+// Header 1 is the site mast-head.
+// Gets special size and centring and font-type.
+h1 {
+    text-align: center;
+    font-family: $monospace-fonts;
+    font-weight: normal;
+
+    // Block display with auto margins centres the block in the screen.
+    display: block;
+    margin: $vspace 0;
+    padding: 0 $gutter;
+
+    // H1 requires extra line-height due to its large size.
+    line-height: $line-height * 2;
+}
+
+// H1 and 2 have unique link colour.
+h1, h2 {
+    a {
+        // Underlines look bad.
+        text-decoration: none;
+        color: $highlight-colour;
+
+        // H1 and H2 do not need special link colours due to their unique roles.
+        // H2 is always a link to itself (article).
+        // H1 is always a link to the home.
+   
+    }
+
+    // The hover makes it obvious that it is a link when the user is exploring the page.
+    a:hover {
+        color: $link-colour;
+    }
+}
+
+// All headers (except for the unique H1) get an underline.
+// The border used as an underline is essential for tying a left aligned header to centred text which may have some distance to it.
+// It is good for the headers to be left aligned because it creates an easy to scan outline on screens that are wider than the reading area.
+
+// H2 gets a uniquely strong underline as the article title.
+h2 {
+    border-bottom: solid $header-underline $highlight-colour;
+
+    // The border must be removed from the line-height in order to maintain a consistent vertical rhythm.
+    // H2 uses double line-height due to its large size.
+    line-height: $line-height * 2 - $header-underline;
+
+    // Zero size margins so the underline stretches across the content area.
+    // Zero bottom margin so that a meta-sub-title can hug the bottom (post date, tags etc.).
+    margin: $vspace 0 0 0;
+    padding: 0 $gutter;
+}
+
+h3, h4, h5, h6 {
+    // Underline
+    border-bottom: solid $header-underline $light-colour;
+
+    // Zero size margins so the underline stretches across the content area.
+    // Zero bottom margin so that a meta-sub-title can hug the bottom (post date, tags etc.).
+    margin: $vspace 0 0 0;
+    padding: 0 $gutter;
+
+    // Generally these headings in articles should not be links so no special behaviour required.
+    // They may be links in archive / recent post lists, where normal link colour is appropriate.
+}
+
+a {
+    // I don't like underlines.
+    // If it is a link section (like nav) its link nature is obvious.
+    // If it is a link in a paragraph of text, underline is far too distracting, the link is secondary to the text.
+    text-decoration: none;
+    color: $link-colour;
+}
+
+a:hover {
+    color: $link-hover-colour;
+}
+
+img {
+    width: 100%;
+}
+
+// Special Divs
+// ============
+//
+// This is the section for styling parts fo the sites that are not entirely covered with basic HTML.
+// The site nav and footer require special divs for their styling.
+// The nav, header and footer tags should not be used for styling, they are for sectioning only.
+// Divs must be used where the standard styles fail to provide.
+
+// Top level site <nav>.
+.site-nav {
+    // Centre, restrict within content area, pad like everything else.
+    text-align: center;
+    max-width: $content-width;
+    font-family: $monospace-fonts;
+
+    // Block display with auto margins centres the block in the screen.
+    // Vertical margins to space elements.
+    // Add padding to maintain a gutter.
+    display: block;
+    margin: $vspace auto;
+    padding: 0 $gutter;
+}
+
+// Top level site <footer>.
+.site-footer {
+    text-align: center;
+
+    // Centre text.
+    // Width needs to match content area due to dividing border line.
+    max-width: $content-width;
+
+    //Extra margin to space footer away from content.
+    display: block;
+    margin: $vspace auto;
+
+    // Vertical padding to space text away from border line.
+    // Horizontal padding for gutter.
+    padding: $vspace $gutter;
+
+    // Smaller font size for non-main-content information.
+    font-size: $small-font-size;
+
+    // A line to separate the footer from the main body.
+    border-top: solid $site-footer-top-border $highlight-colour;
+}
+
+// The meta-sub-title for a heading.
+.heading-footer {
+    // Small italic text, this is extra info that can be ignored.
+    font-style: italic;
+    font-size: $small-font-size;
+
+    // Restrict to content width, lines up with heading.
+    max-width: $content-width;
+
+    // Block display with auto margins centres the block in the screen.
+    // Vertical margins to space elements.
+    // Add padding to maintain a gutter.
+    display: block;
+    margin: 0 auto;
+    padding: 0 $gutter;
+}
+
+// Special tag for block-art.
+.art {
+    text-align: left;
+    color: $highlight-colour;
+    font-family: "Source Code Pro";
+    white-space: pre;
+    line-height: $base;
+    letter-spacing: 0;
+    display: inline-block;
+    margin: auto;
+
+    a {
+        color: $highlight-colour;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: $link-colour;
+    }
+}
+
+// The following three divs are for resizing element to fit different widths.
+// They can be inserted into Markdown using `{: .other-text-width }` to add the appropriate div to the most recent block.
+.reading-width {
+    max-width: $reading-width;
+    margin: $vspace auto;
+    padding: 0 $gutter;
+}
+
+.content-width {
+    max-width: $reading-width;
+    margin: $vspace auto;
+    padding: 0 $gutter;
+}
+
+.other-text-width {
+    max-width: $other-text-width;
+    margin: $vspace auto;
+    padding: 0 $gutter;
+}

@@ -1,0 +1,12 @@
+[
+    {
+        "outputFile": "./wwwroot/gen/site.css",
+        "inputFile": "./sass/site.scss",
+        "minify": {
+            "enabled": true
+        },
+        "options":{
+            "sourceMap": false
+        }
+    }
+]

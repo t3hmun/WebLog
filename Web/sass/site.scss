@@ -1,0 +1,90 @@
+// This is the main SASS that pull together the whole site style.
+// All colours and sizes and fonts must be defined here as variables (except syntax colour).
+
+$monospace-fonts: Courier, monospace;
+$sans-serif-fonts: Veranda, sans-serif;
+$serif-fonts: "Times New Roman", Times, serif;
+
+// This is my basic size, it is used as the main font size and *all* other things are scaled off it (except the gutter).
+// The only number that is used outside of this file is zero.
+$base: 18px;
+
+// This is the value that defines the vertical rhythm for the whole document.
+// All text sizes (except for the H1 and H2) share this spacing.
+// H1 and H2 are too big and have double spacing, hence staying with the rhythm.
+// In order to make it consistent it must be a px size.
+// Normal zoom works fine with this.
+// One compromise is that text-only zoom will be a disaster with this absolute line-height.
+$line-height: round($base * 1.6);
+
+// Gutter is the space from edge of screen. 
+// Fixed to look neat on all sizes without wasting screen space.
+// vspace is vertical and should be set to match the line-height in order to cerate a sconsistent vertical rhythm.
+$gutter: 5px;
+$vspace: $line-height;
+
+// The max width for pure text content.
+// I want roughly 60 characters per line for hard reading.
+// Normal fonts have a height width raio of around 2.2:1
+// The height is multiplied to achieve a rough CPL.
+$reading-width: $base * 27;
+
+// This is the max with for any content, including large images, code and titles.
+// These kinds of content like to exploit as much space as possible.
+// However using more than double the reading width looks clumsy and confusing.
+$content-width: $reading-width * 2;
+
+// Other text is things like bullets and blockquotes.
+// Bullets enjoy longer lines, better flow, they already have visual aids to help the eye.
+// Also gives space for the extra gutter parts of these elements.
+$other-text-width: $reading-width * 1.5;
+
+// Used for side information, such as post-date subtitle.
+$small-font-size: $base * 0.9;
+
+// Only 4 colours to edit to make a new theme.
+$text-colour: #eeeeee;
+$background-colour: #111111;
+$highlight-colour: #ffb71c; // This can be though of as the brand colour.
+$link-colour: lighten(mix(#00f, $highlight-colour, 80%), 35%); // Mixing with traditional link blue. May not work with all colours.
+
+$link-hover-colour: $highlight-colour;
+
+// These mixes may need tweaking on some themes.
+$medium-colour: lighten($highlight-colour, 15%);
+$light-colour: lighten($highlight-colour, 28%);
+$subtle-back-colour: mix($highlight-colour, $background-colour, 10%);
+$subtle-fore-colour: mix($highlight-colour, $text-colour, 50%);
+
+
+// Some highly specific adjustments:
+$header-underline: 1px;
+$blockquote-side-line: round($base/2);
+$site-footer-top-border: 1px;
+$code-border-thickness: 1px;
+$bullet-padding: $base;
+
+
+// H1 is much bigger than the rest, it is the site masthead.
+$h1size: 3 * $base;
+// The headers get smaller in diminishing steps; larger sizes are more similar to eachother relative to thier own size.
+$h2size: 2.0 * $base;
+$h3size: 1.7 * $base;
+$h4size: 1.4 * $base;
+$h5size: 1.2 * $base;
+$h6size: 1.0 * $base;
+
+// H1 and H2 link colour is set to $highlight-colour 
+$h1colour: $highlight-colour; // H1 is special, masthead only.
+$h2colour: mix($text-colour, $highlight-colour, 5%); // Main title for article / top section.
+$h3colour: mix($text-colour, $highlight-colour, 25%);
+$h4colour: mix($text-colour, $highlight-colour, 30%);
+$h5colour: mix($text-colour, $highlight-colour, 45%);
+$h6colour: mix($text-colour, $highlight-colour, 60%);
+
+// Import partials from `sass_dir` (defaults to `_sass`)
+// Imported in order where lower in the list overrides higher.
+@import
+        "normalize",
+        "style"
+;
