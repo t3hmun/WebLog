@@ -1,4 +1,4 @@
-@model t3hmun.WLog.Web.Model.IHasTitle
+@model t3hmun.WLog.Web.Model.BaseModel
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +7,14 @@
     <title>@Model.Title</title>
 </head>
 <body>
+    <nav>
+        <span class="site-header">t3hmun</span>
+        [
+        <span class="menu-item">home</span>
+        <span class="menu-delimiter"> | </span>
+        <span class="menu-item">error</span>
+        ]
+    </nav>
 @RenderBody()
 </body>
 </html>
