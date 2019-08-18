@@ -1,27 +1,40 @@
 namespace t3hmun.WLog.Web.Helpers
 {
     using System.Collections.Generic;
+    using System.Diagnostics;
     public static class StringExtensions
     {
+        ///<summary>Add spaces before capital letters except for in acronyms, next to punctuation or existing preceding whitespace. 
+        /// Numbers are treated like lower case letters.
+        /// Never adds spaces on any side of punctuation.</summary>
         public static string CamelSpace(this string camelText)
         {
-            bool previousIsUpper = false;
-            List<char> camelSpaced = new List<char>();
-            foreach(char letter in camelText)
+            if (camelText.Length <= 1) return camelText;
+
+            List<char> result = new List<char>();
+            result.Add(camelText[0]);
+
+            for (int i = 1; i < camelText.Length; i++)
             {
-                if(char.IsUpper(letter))
+                var current = camelText[i];
+                var previous = camelText[i - 1];
+
+                if (char.IsUpper(current))
                 {
-                    if(previousIsUpper) camelSpaced.Add(' ');
-                    previousIsUpper = true;
+                    if (char.IsLower(previous) || char.IsDigit(previous))
+                    {
+                        result.Add(' ');
+                    }
+                    else if(i != camelText.Length - 1 && (char.IsUpper(previous) && char.IsLower(camelText[i+1])))
+                    {
+                        result.Add(' ');
+                    }
                 }
-                else 
-                {
-                    previousIsUpper = false;
-                }
-                camelSpaced.Add(letter);
+
+                result.Add(current);
             }
 
-            return new string(camelSpaced.ToArray());
+            return new string(result.ToArray());
         }
     }
 }
