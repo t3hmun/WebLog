@@ -1,16 +1,23 @@
 namespace t3hmun.WLog.Web.Model
 {
-    using t3hmun.WLog.Web.Helpers;
     using System;
     using Microsoft.AspNetCore.Mvc.RazorPages;
 
+    using t3hmun.WLog.Web.Helpers;
+    using t3hmun.WLog.Web.Pages;
+    
     public abstract class BaseModel : PageModel
     {
         public string Title { get; protected set; }
 
+        public MenuItem[] Menu { get;}
+
         public BaseModel()
         {
             Title = DefaultTitle(GetType());
+            Menu = new MenuItem[]{
+                new MenuItem(typeof(HomeModel))
+            };
         }
 
         public static string ModelName(Type model)

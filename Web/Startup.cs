@@ -24,6 +24,10 @@ namespace t3hmun.WLog.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler($"/{BaseModel.ModelName(typeof(ErrorModel))}");
+            }
 
             app.UseStaticFiles();
 
