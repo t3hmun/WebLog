@@ -2,7 +2,6 @@ namespace t3hmun.WLog.Web
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
 
@@ -10,6 +9,7 @@ namespace t3hmun.WLog.Web
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddRazorPages();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -20,15 +20,12 @@ namespace t3hmun.WLog.Web
             }
 
             app.UseStaticFiles();
-            
+
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapRazorPages();
             });
         }
     }
