@@ -16,7 +16,8 @@ namespace t3hmun.WLog.Web.Model
         {
             Title = DefaultTitle(GetType());
             Menu = new MenuItem[]{
-                new MenuItem(typeof(HomeModel))
+                new MenuItem(typeof(HomeModel)),
+                new MenuItem(typeof(ErrorModel)),
             };
         }
 

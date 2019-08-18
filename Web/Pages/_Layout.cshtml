@@ -10,9 +10,15 @@
     <nav>
         <span class="site-header">t3hmun</span>
         [
-        <span class="menu-item">home</span>
-        <span class="menu-delimiter"> | </span>
-        <span class="menu-item">error</span>
+        @for(var i = 0; i< Model.Menu.Length; i++)
+        {
+            var menuItem = Model.Menu[i];    
+            <span class="menu-item"><a asp-page="@menuItem.AspLink">@menuItem.Title</a></span>
+            if(i != Model.Menu.Length -1) 
+            {
+                <span class="menu-delimiter"> | </span>
+            }
+        }
         ]
     </nav>
 @RenderBody()
