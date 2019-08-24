@@ -4,6 +4,11 @@ namespace t3hmun.WebLog.Web.Pages
 
     public class HomeModel : BaseModel
     {
+        public HomeModel()
+        {
+            Title = "";
+        }
+
         public void OnGet()
         {
         }

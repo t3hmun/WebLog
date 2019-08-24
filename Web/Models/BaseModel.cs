@@ -7,6 +7,8 @@ namespace t3hmun.WebLog.Web.Models
 
     public abstract class BaseModel : PageModel
     {
+        protected const string DefaultTitlePrefix = "t3hmun - ";
+
         public BaseModel()
         {
             Title = DefaultTitle(GetType());
@@ -14,7 +16,7 @@ namespace t3hmun.WebLog.Web.Models
             {
                 new MenuItem(typeof(HomeModel)),
                 new MenuItem(typeof(ErrorModel)),
-                new MenuItem("GitHub", "https://wwww.github.com/t3hmun")
+                new MenuItem("Git Repos", "https://wwww.github.com/t3hmun")
             };
         }
 
@@ -31,7 +33,7 @@ namespace t3hmun.WebLog.Web.Models
 
         public static string DefaultTitle(Type model)
         {
-            return ModelName(model).CamelSpace();
+            return DefaultTitlePrefix + ModelName(model).CamelSpace();
         }
     }
 }
