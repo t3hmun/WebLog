@@ -1,2 +1,3 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/GeneratedFilesAndFolders/=510FBD12_002D5775_002D4718_002D87A1_002DC3B3BFC6CDB8_002Fd_003Awwwroot_002Fd_003Agen/@EntryIndexedValue">510FBD12-5775-4718-87A1-C3B3BFC6CDB8/d:wwwroot/d:gen</s:String></wpf:ResourceDictionary>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/GeneratedFilesAndFolders/=510FBD12_002D5775_002D4718_002D87A1_002DC3B3BFC6CDB8_002Fd_003Awwwroot_002Fd_003Agen/@EntryIndexedValue">510FBD12-5775-4718-87A1-C3B3BFC6CDB8/d:wwwroot/d:gen</s:String>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Markdig/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

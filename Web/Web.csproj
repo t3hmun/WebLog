@@ -11,6 +11,8 @@
 
   <ItemGroup>
     <PackageReference Include="BuildWebCompiler" Version="1.12.405" />
+    <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" />
+    <PackageReference Include="markdig" Version="0.17.1" />
   </ItemGroup>
 
 </Project>

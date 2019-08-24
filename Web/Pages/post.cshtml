@@ -1,9 +1,12 @@
 ﻿@page
 @model t3hmun.WebLog.Web.Pages.PostModel
 
-Post page:
-@Request.Path
+@if (Model.Exists)
+{
+    @Html.Raw(Model.PostHtml)
+}
+else
+{
+    <p>Post does not exist.</p>
+}
 
-<br/>
-
-@RouteData.Values[PostModel.RawTitleRouteString]
