@@ -63,7 +63,7 @@ body {
     background: $background-colour;
     color: $text-colour;
     font-size: $base;
-    font-family: $sans-serif-fonts;
+    font-family: $serif-fonts;
 
     // Auto margin to centre the body.
     // This means padding will have to be added manually to maintain a gutter.
@@ -76,6 +76,10 @@ body {
     // This should scale up when the user zooms in.
     // Large text sizes may need extra line spacing, but this spacing should be generous enough for most headers.
     line-height: $line-height;
+}
+
+nav {
+    font-family: $monospace-fonts
 }
 
 pre, code {
@@ -313,6 +317,7 @@ h1, h2 {
 
 // H2 gets a uniquely strong underline as the article title.
 h2 {
+    font-family: $monospace-fonts;
     border-bottom: solid $header-underline $highlight-colour;
 
     // The border must be removed from the line-height in order to maintain a consistent vertical rhythm.
@@ -328,6 +333,8 @@ h2 {
 h3, h4, h5, h6 {
     // Underline
     border-bottom: solid $header-underline $light-colour;
+    
+    font-family: $monospace-fonts;
 
     // Zero size margins so the underline stretches across the content area.
     // Zero bottom margin so that a meta-sub-title can hug the bottom (post date, tags etc.).

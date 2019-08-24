@@ -1,9 +1,9 @@
 // This is the main SASS that pull together the whole site style.
 // All colours and sizes and fonts must be defined here as variables (except syntax colour).
 
-$monospace-fonts: Courier, monospace;
+$monospace-fonts: mun, Courier, monospace;
 $sans-serif-fonts: Veranda, sans-serif;
-$serif-fonts: "Times New Roman", Times, serif;
+$serif-fonts: Merriweather, "Times New Roman", Times, serif;
 
 // This is my basic size, it is used as the main font size and *all* other things are scaled off it (except the gutter).
 // The only number that is used outside of this file is zero.
