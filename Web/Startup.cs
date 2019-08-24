@@ -14,6 +14,9 @@ namespace t3hmun.WebLog.Web
             services.AddRazorPages().AddRazorPagesOptions(options =>
             {
                 options.Conventions.AddPageRoute($"/{BaseModel.ModelName(typeof(HomeModel))}", "");
+                options.Conventions.AddPageRoute(
+                    $"/{BaseModel.ModelName(typeof(PostModel))}",
+                    "~/post/{" + PostModel.RawTitleRouteString + "}");
             });
         }
 
