@@ -1,11 +1,11 @@
-namespace t3hmun.WLog.Web.Pages
+namespace t3hmun.WebLog.Web.Pages
 {
-    using t3hmun.WLog.Web.Model;
-    public class ErrorModel: BaseModel
+    using t3hmun.WebLog.Web.Models;
+
+    public class ErrorModel : BaseModel
     {
         public void OnGet()
         {
-
         }
     }
 }

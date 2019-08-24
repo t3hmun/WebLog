@@ -1,9 +1,10 @@
-namespace t3hmun.WLog.Web.Model
+namespace t3hmun.WebLog.Web.Models
 {
     using System;
+
     public interface ILayout
     {
-        public string Title { get; protected set; }      
-        public Type[] Menu { get; protected set; }      
+        string Title { get; }
+        Type[] Menu { get; }
     }
 }

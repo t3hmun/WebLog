@@ -1,8 +1,8 @@
-
-namespace Web.Tests.Helpers
+namespace t3hmun.WebLog.Web.Tests.Helpers
 {
-    using t3hmun.WLog.Web.Helpers;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using t3hmun.WebLog.Web.Helpers;
+
     [TestClass]
     public class TestStringExtensions
     {

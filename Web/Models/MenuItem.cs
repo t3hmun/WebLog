@@ -1,12 +1,9 @@
-namespace t3hmun.WLog.Web.Model
+namespace t3hmun.WebLog.Web.Models
 {
     using System;
+
     public class MenuItem
     {
-        public string Title { get; }
-        public string AspLink { get; set; }
-        public string Link { get;set; }
-
         public MenuItem(Type model)
         {
             Title = BaseModel.DefaultTitle(model);
@@ -18,5 +15,9 @@ namespace t3hmun.WLog.Web.Model
             Title = title;
             Link = link;
         }
+
+        public string Title { get; }
+        public string AspLink { get; set; }
+        public string Link { get; set; }
     }
 }

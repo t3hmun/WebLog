@@ -1,7 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <AssemblyName>t3hmun.WebLog.Web</AssemblyName>
+    <RootNamespace>t3hmun.WebLog.Web</RootNamespace>
+    <PackageId>t3hmun.WebLog</PackageId>
+    <Company>t3hmun</Company>
+    <Product>WebLog</Product>
   </PropertyGroup>
 
   <ItemGroup>
