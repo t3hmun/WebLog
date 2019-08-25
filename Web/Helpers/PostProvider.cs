@@ -28,7 +28,7 @@
 
         public async Task<IPost> TryGetPost(string rawPostTitle)
         {
-            var file = _fileProvider.GetFileInfo($"md/{rawPostTitle}.md");
+            var file = _fileProvider.GetFileInfo($"md/post/{rawPostTitle}.md");
             var post = new Post
             {
                 Title = ExtractTitle(rawPostTitle),
