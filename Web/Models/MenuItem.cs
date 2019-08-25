@@ -1,12 +1,13 @@
 namespace t3hmun.WebLog.Web.Models
 {
     using System;
+    using t3hmun.WebLog.Web.Helpers;
 
     public class MenuItem
     {
         public MenuItem(Type model)
         {
-            Title = BaseModel.DefaultTitle(model);
+            Title = BaseModel.ModelName(model).CamelSpace();
             AspLink = $"/{BaseModel.ModelName(model)}";
         }
 

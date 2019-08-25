@@ -16,7 +16,7 @@ namespace t3hmun.WebLog.Web.Models
             {
                 new MenuItem(typeof(HomeModel)),
                 new MenuItem(typeof(ErrorModel)),
-                new MenuItem("Git Repos", "https://wwww.github.com/t3hmun")
+                new MenuItem("Git Repos", "https://github.com/t3hmun")
             };
         }
 
@@ -30,7 +30,7 @@ namespace t3hmun.WebLog.Web.Models
             if (name.EndsWith("Model")) name = name.Substring(0, name.Length - 5);
             return name;
         }
-
+        
         public static string DefaultTitle(Type model)
         {
             return DefaultTitlePrefix + ModelName(model).CamelSpace();

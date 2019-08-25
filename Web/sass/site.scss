@@ -8,6 +8,7 @@ $serif-fonts: Merriweather, "Times New Roman", Times, serif;
 // This is my basic size, it is used as the main font size and *all* other things are scaled off it (except the gutter).
 // The only number that is used outside of this file is zero.
 $base: 18px;
+$min: 1px;
 
 // This is the value that defines the vertical rhythm for the whole document.
 // All text sizes (except for the H1 and H2) share this spacing.
@@ -19,7 +20,7 @@ $line-height: round($base * 1.6);
 
 // Gutter is the space from edge of screen. 
 // Fixed to look neat on all sizes without wasting screen space.
-// vspace is vertical and should be set to match the line-height in order to cerate a sconsistent vertical rhythm.
+// vspace is vertical and should be set to match the line-height in order to create a consistent vertical rhythm.
 $gutter: 5px;
 $vspace: $line-height;
 
@@ -32,7 +33,7 @@ $reading-width: $base * 27;
 // This is the max with for any content, including large images, code and titles.
 // These kinds of content like to exploit as much space as possible.
 // However using more than double the reading width looks clumsy and confusing.
-$content-width: $reading-width * 2;
+$content-width: $reading-width * 2.5;
 
 // Other text is things like bullets and blockquotes.
 // Bullets enjoy longer lines, better flow, they already have visual aids to help the eye.
@@ -58,33 +59,21 @@ $subtle-fore-colour: mix($highlight-colour, $text-colour, 50%);
 
 
 // Some highly specific adjustments:
-$header-underline: 1px;
 $blockquote-side-line: round($base/2);
-$site-footer-top-border: 1px;
-$code-border-thickness: 1px;
+$site-footer-top-border: $min;
+$code-border-thickness: $min;
 $bullet-padding: $base;
 
-
-// H1 is much bigger than the rest, it is the site masthead.
-$h1size: 3 * $base;
-// The headers get smaller in diminishing steps; larger sizes are more similar to eachother relative to thier own size.
-$h2size: 2.0 * $base;
-$h3size: 1.7 * $base;
-$h4size: 1.4 * $base;
-$h5size: 1.2 * $base;
-$h6size: 1.0 * $base;
-
-// H1 and H2 link colour is set to $highlight-colour 
-$h1colour: $highlight-colour; // H1 is special, masthead only.
-$h2colour: mix($text-colour, $highlight-colour, 5%); // Main title for article / top section.
-$h3colour: mix($text-colour, $highlight-colour, 25%);
-$h4colour: mix($text-colour, $highlight-colour, 30%);
-$h5colour: mix($text-colour, $highlight-colour, 45%);
-$h6colour: mix($text-colour, $highlight-colour, 60%);
+// h#, font-size, color, line-height, border color, shadow-bottom size, shadow-right size
+$headingMap: (h1, 3.0 * $base, $highlight-colour, $line-height * 3, $highlight-colour, 0, 0),
+        (h2, 2.0 * $base, mix($text-colour, $highlight-colour, 0%), $line-height * 2, $highlight-colour, $min*3, $min*3),
+        (h3, 1.5 * $base, mix($text-colour, $highlight-colour, 25%), $line-height * 2, $highlight-colour, $min*3, $min*0),
+        (h4, 1.2 * $base, mix($text-colour, $highlight-colour, 30%), $line-height * 2, $highlight-colour, $min*2, $min*2),
+        (h5, 1.0 * $base, mix($text-colour, $highlight-colour, 45%), $line-height * 1, $highlight-colour, $min*2, $min*0),
+        (h6, 1.0 * $base, mix($text-colour, $highlight-colour, 60%), $line-height * 1, $subtle-fore-colour, $min*1, 0)
+;
 
 // Import partials from `sass_dir` (defaults to `_sass`)
 // Imported in order where lower in the list overrides higher.
-@import
-        "normalize",
-        "style"
-;
+@import "normalize",
+"style";

@@ -1,10 +1,13 @@
-// _style.scss written by t3hmun (Manish Parekh, t3hmun at gmail dot com)
+// _style.scss written by t3hmun (Manish Parekh, sass@t3hmun.com)
 //
 // License:
 // 
 // Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
 // http://creativecommons.org/licenses/by-sa/4.0/ 
 //
+
+// My primary concern in this style is ease of reading, as a result some of the width changes are a stylistically jarring.
+// Also I do not use grids, I rely on word-wrap to make it 'responsive' to all sizes.
 
 // I write a lot of comments in here.
 // Makes updating possible when I come back to this in years time when HTML5 is obsolete and it needs updating for the mind-machine interface.
@@ -86,6 +89,17 @@ pre, code {
     font-family: $monospace-fonts
 }
 
+// Most of the styling for pre is done by the syntax stylesheet.
+pre {
+    // Block display with auto margins centres the block in the screen.
+    // Vertical margins to space elements.
+    // Add padding to maintain a gutter.
+    font-family: $monospace-fonts;
+    display: block;
+    margin: $vspace auto;
+    padding: 0 $gutter;
+}
+
 // Assuming that most p blocks are for pure text.
 // p blocks in other situations have extra CSS to redefine the style.
 p {
@@ -100,6 +114,7 @@ p {
     margin: $vspace auto;
     padding: 0 $gutter;
 
+    // These code blocks are `some code` spans in converted markdown.
     code {
         // Separate colour to differentiate it from the normal text.
         color: $subtle-fore-colour;
@@ -217,132 +232,38 @@ ol {
     }
 }
 
-// Most of the styling for pre is done by the syntax stylesheet.
-pre {
-    // Block display with auto margins centres the block in the screen.
-    // Vertical margins to space elements.
-    // Add padding to maintain a gutter.
-    font-family: $monospace-fonts;
-    display: block;
-    margin: $vspace auto;
-    padding: 0 $gutter;
-}
-
-h1 {
-    font-size: $h1size;
-}
-
-h2 {
-    font-size: $h2size;
-}
-
-h3 {
-    font-size: $h3size;
-}
-
-h4 {
-    font-size: $h4size;
-}
-
-h5 {
-    font-size: $h5size;
-}
-
-h6 {
-    font-size: $h6size;
-}
-
-h1 {
-    color: $h1colour;
-}
-
-h2 {
-    color: $h2colour;
-}
-
-h3 {
-    color: $h3colour;
-}
-
-h4 {
-    color: $h4colour;
-}
-
-h5 {
-    color: $h5colour;
-}
-
-h6 {
-    color: $h6colour;
-}
-
-// Header 1 is the site mast-head.
-// Gets special size and centring and font-type.
-h1 {
-    text-align: center;
-    font-family: $monospace-fonts;
-    font-weight: normal;
-
-    // Block display with auto margins centres the block in the screen.
-    display: block;
-    margin: $vspace 0;
-    padding: 0 $gutter;
-
-    // H1 requires extra line-height due to its large size.
-    line-height: $line-height * 2;
-}
-
-// H1 and 2 have unique link colour.
-h1, h2 {
-    a {
-        // Underlines look bad.
-        text-decoration: none;
-        color: $highlight-colour;
-
-        // H1 and H2 do not need special link colours due to their unique roles.
-        // H2 is always a link to itself (article).
-        // H1 is always a link to the home.
-   
-    }
-
-    // The hover makes it obvious that it is a link when the user is exploring the page.
-    a:hover {
-        color: $link-colour;
-    }
-}
-
-// All headers (except for the unique H1) get an underline.
-// The border used as an underline is essential for tying a left aligned header to centred text which may have some distance to it.
+// All headers get an underline.
+// The border used as an underline is essential for visually tying a left aligned header to centred text which may have some distance to it.
 // It is good for the headers to be left aligned because it creates an easy to scan outline on screens that are wider than the reading area.
 
-// H2 gets a uniquely strong underline as the article title.
-h2 {
-    font-family: $monospace-fonts;
-    border-bottom: solid $header-underline $highlight-colour;
-
-    // The border must be removed from the line-height in order to maintain a consistent vertical rhythm.
-    // H2 uses double line-height due to its large size.
-    line-height: $line-height * 2 - $header-underline;
-
-    // Zero size margins so the underline stretches across the content area.
-    // Zero bottom margin so that a meta-sub-title can hug the bottom (post date, tags etc.).
-    margin: $vspace 0 0 0;
-    padding: 0 $gutter;
+@each $hx, $hSize, $hColour, $hLineHeight, $hBorder-colour, $hBorder-bottom-size, $hBorder-right-size in $headingMap{
+    #{$hx} {
+        font-family: $monospace-fonts;
+        font-size: $hSize;
+        color: $hColour;
+        text-decoration: none;
+        box-shadow: $hBorder-colour $hBorder-right-size $hBorder-bottom-size;
+        line-height: $hLineHeight;
+        padding: 0 $gutter;
+        margin: $vspace 0 $vspace 0;
+        a {
+            // All headers should be links to themselves so don't keep the same styling.
+            color: $hColour;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: none;
+        }
+    }
 }
 
-h3, h4, h5, h6 {
-    // Underline
-    border-bottom: solid $header-underline $light-colour;
-    
-    font-family: $monospace-fonts;
-
-    // Zero size margins so the underline stretches across the content area.
+h1 {
     // Zero bottom margin so that a meta-sub-title can hug the bottom (post date, tags etc.).
     margin: $vspace 0 0 0;
     padding: 0 $gutter;
 
-    // Generally these headings in articles should not be links so no special behaviour required.
-    // They may be links in archive / recent post lists, where normal link colour is appropriate.
+    // Centre the main heading, it doesn't need to be on the left for scanning the document like the others.
+    text-align: center;
 }
 
 a {
@@ -357,6 +278,7 @@ a:hover {
     color: $link-hover-colour;
 }
 
+// Although stylistically imperfect, full size images are easier to look at.
 img {
     width: 100%;
 }
@@ -424,26 +346,6 @@ img {
     padding: 0 $gutter;
 }
 
-// Special tag for block-art.
-.art {
-    text-align: left;
-    color: $highlight-colour;
-    font-family: "Source Code Pro";
-    white-space: pre;
-    line-height: $base;
-    letter-spacing: 0;
-    display: inline-block;
-    margin: auto;
-
-    a {
-        color: $highlight-colour;
-        text-decoration: none;
-    }
-
-    a:hover {
-        color: $link-colour;
-    }
-}
 
 // The following three divs are for resizing element to fit different widths.
 // They can be inserted into Markdown using `{: .other-text-width }` to add the appropriate div to the most recent block.
