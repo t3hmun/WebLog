@@ -8,17 +8,19 @@
 
     public class PostModel : BaseModel
     {
+        public const string RawTitleRouteString = "page-title";
         private readonly IFileProvider _fileProvider;
         private readonly IPostParser _postParser;
-        public string PostHtml { get; private set; }
-        public bool Exists { get; private set; }
-        public const string RawTitleRouteString = "page-title";
 
         public PostModel(IFileProvider fileProvider, IPostParser postParser)
         {
             _fileProvider = fileProvider;
             _postParser = postParser;
         }
+
+        public string PostHtml { get; private set; }
+        public bool Exists { get; private set; }
+
         public async Task OnGet()
         {
             var rawPageTitle = RouteData.Values[RawTitleRouteString];

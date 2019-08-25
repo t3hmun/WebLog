@@ -30,7 +30,7 @@ namespace t3hmun.WebLog.Web.Models
             if (name.EndsWith("Model")) name = name.Substring(0, name.Length - 5);
             return name;
         }
-        
+
         public static string DefaultTitle(Type model)
         {
             return DefaultTitlePrefix + ModelName(model).CamelSpace();
