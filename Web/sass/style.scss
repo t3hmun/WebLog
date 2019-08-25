@@ -242,7 +242,7 @@ ol {
         font-size: $hSize;
         color: $hColour;
         text-decoration: none;
-        box-shadow: $hBorder-colour $hBorder-right-size $hBorder-bottom-size;
+        box-shadow: inset (-$hBorder-right-size)  (-$hBorder-bottom-size) $hBorder-colour;
         line-height: $hLineHeight;
         padding: 0 $gutter;
         margin: $vspace 0 $vspace 0;
