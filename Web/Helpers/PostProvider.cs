@@ -1,5 +1,7 @@
 ﻿namespace t3hmun.WebLog.Web.Helpers
 {
+    using System;
+    using System.Globalization;
     using System.IO;
     using System.Threading.Tasks;
     using Markdig;
@@ -24,9 +26,16 @@
                 .Build();
         }
 
-        public async Task<(bool exisits, string html)> TryGetPost(string rawPostTitle)
+        public async Task<IPost> TryGetPost(string rawPostTitle)
         {
             var file = _fileProvider.GetFileInfo($"md/{rawPostTitle}.md");
+            var post = new Post
+            {
+                Title = ExtractTitle(rawPostTitle),
+                Date = ExtractDate(rawPostTitle),
+                Html = null,
+                Errors = null
+            };
             if (file.Exists)
             {
                 string md;
@@ -38,10 +47,30 @@
                     }
                 }
 
-                return (true, Parse(md));
+                try
+                {
+                    post.Html = Parse(md);
+                }
+                catch (Exception e)
+                {
+                    //TODO: LOG errors.
+                    post.Errors = e.Message;
+                }
             }
 
-            return (false, null);
+            return post;
+        }
+
+        private static string ExtractTitle(string rawPostTitle)
+        {
+            var rawTitle = rawPostTitle.Substring(7);
+            var withSpaces = rawTitle.Replace("_", " ").Replace("  ", " _");
+            return withSpaces;
+        }
+
+        private static DateTime ExtractDate(string rawPostTitle)
+        {
+            return DateTime.ParseExact(rawPostTitle.Substring(0, 6), "yyMMdd", CultureInfo.InvariantCulture);
         }
 
         private string Parse(string markdown)

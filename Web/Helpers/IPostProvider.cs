@@ -4,6 +4,6 @@
 
     public interface IPostProvider
     {
-        Task<(bool exisits, string html)> TryGetPost(string rawPostTitle);
+        Task<IPost> TryGetPost(string rawPostTitle);
     }
 }

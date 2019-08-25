@@ -15,16 +15,14 @@
             _postProvider = postProvider;
         }
 
-        public string PostHtml { get; private set; }
-        public bool Exists { get; private set; }
+        public IPost Post { get; private set; }
+
 
         [UsedImplicitly]
         public async Task OnGet()
         {
             var rawPageTitle = RouteData.Values[RawTitleRouteString].ToString();
-            var (exists, html) = await _postProvider.TryGetPost(rawPageTitle);
-            Exists = exists;
-            PostHtml = html;
+            Post = await _postProvider.TryGetPost(rawPageTitle);
         }
     }
 }

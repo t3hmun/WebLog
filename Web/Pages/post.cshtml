@@ -1,11 +1,28 @@
 ﻿@page
+@using System.Globalization
 @model t3hmun.WebLog.Web.Pages.PostModel
 
-@if (Model.Exists)
+@{
+    var post = Model.Post;
+}
+
+@if (post.Errors != null)
 {
-    @Html.Raw(Model.PostHtml)
+    <h1>@post.Title</h1>
+    <p>This post failed to render:</p>
+    <pre>@post.Errors</pre>
+}
+else if (post.Exists)
+{
+    if (post.Html == null)
+    {
+        throw new NullReferenceException("Html null but exits true, something very broken.");
+    }
+    var headerEnd = post.Html.IndexOf("</h1>", StringComparison.Ordinal) + 5;
+    var footer = $"<div class=\"heading-footer\">{post.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)}</div>";
+    @Html.Raw(post.Html.Insert(headerEnd, footer))
 }
 else
 {
-    <p>Post does not exist.</p>
+    <p>Post `@Model.Post.Title` from @Model.Post.Date.ToString("dd MMMM yyyy") does not exist.</p>
 }
