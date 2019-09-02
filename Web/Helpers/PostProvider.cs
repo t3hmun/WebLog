@@ -11,11 +11,11 @@
     public class PostProvider : IPostProvider
     {
         private readonly IFileProvider _fileProvider;
-        private readonly MarkdownPipeline _pipeline;
 
         // TODO: Move regex out and unit test.
         private readonly Regex _findH1 = new Regex(@"(^#[^#])|(""(=)+\s*((\n|(\r\n)))\s*$)", RegexOptions.Multiline);
-        
+        private readonly MarkdownPipeline _pipeline;
+
         public PostProvider(IFileProvider fileProvider)
         {
             _fileProvider = fileProvider;
@@ -44,16 +44,12 @@
             {
                 var rawFile = await ReadFile(file);
 
-                var md = ProcessAndRemovePreamble(rawFile, ref post);
+                var md = rawFile;
 
-                // TODO: This is all nonsense, I should do the H1 check on the HTML after parsing.
-                // TODO: Also preamble must be TDD, with a bunch of sample files.
-                var h1Matches = _findH1.Match(md);
-                post.H1IsMissing = _findH1.IsMatch(md);
-                
                 try
                 {
                     post.Html = Parse(md);
+                    post.H1IsMissing = !_findH1.IsMatch(post.Html);
                 }
                 catch (Exception e)
                 {
@@ -65,20 +61,7 @@
             return post;
         }
 
-        private static string ProcessAndRemovePreamble(string md, ref Post post)
-        {
-                if (md.StartsWith("{"))
-                {
-                    var json = md.Substring(0, md.IndexOf("\n", StringComparison.Ordinal));
-                    var preamble = System.Text.Json.JsonSerializer.Deserialize<JsonPreamble>(json);
-                    post.Description = preamble.description;
-                }else if (md.IndexOf('#') > 2)
-                {
-                    post.Description = md.Substring(0, firstHash);
-                }
 
-        }
-        
         private static async Task<string> ReadFile(IFileInfo file)
         {
             string md;
