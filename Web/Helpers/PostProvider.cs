@@ -45,6 +45,7 @@
                 var rawFile = await ReadFile(file);
 
                 var md = rawFile;
+                PreambleProcessor.JsonPreamble(ref md, post);
 
                 try
                 {
