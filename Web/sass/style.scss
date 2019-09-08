@@ -331,19 +331,11 @@ img {
 
 // The meta-sub-title for a heading.
 .heading-footer {
-    // Small italic text, this is extra info that can be ignored.
+    // Small text for date and tags.
     font-style: italic;
     font-size: $small-font-size;
 
-    // Restrict to content width, lines up with heading.
-    max-width: $content-width;
-
-    // Block display with auto margins centres the block in the screen.
-    // Vertical margins to space elements.
-    // Add padding to maintain a gutter.
-    display: block;
-    margin: 0 auto;
-    padding: 0 $gutter;
+    text-align: center;
 }
 
 

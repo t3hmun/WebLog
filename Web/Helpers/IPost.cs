@@ -14,5 +14,6 @@
 
         string Errors { get; }
         string Description { get; set; }
+        bool H1IsMissing { get; set; }
     }
 }

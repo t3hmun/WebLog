@@ -46,7 +46,7 @@
             try
             {
                 post.Html = Parse(md);
-                post.H1IsMissing = MdPostProviderHelper.HasH1(post.Html);
+                post.H1IsMissing = !MdPostProviderHelper.HasH1(post.Html);
             }
             catch (Exception e)
             {
@@ -75,7 +75,7 @@
 
         private static string ExtractTitle(string rawPostTitle)
         {
-            var rawTitle = rawPostTitle.Substring(7);
+            var rawTitle = rawPostTitle.Substring(11);
             var withSpaces = rawTitle.Replace("_", " ").Replace("  ", " _");
             return withSpaces;
         }

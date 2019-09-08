@@ -16,11 +16,23 @@ else if (post.Exists)
 {
     if (post.Html == null)
     {
-        throw new NullReferenceException("Html null but exits true, something very broken.");
+        throw new NullReferenceException("post.Html is null, parser should not have allowed this.");
     }
-    var headerEnd = post.Html.IndexOf("</h1>", StringComparison.Ordinal) + 5;
-    var footer = $"<div class=\"heading-footer\">{post.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)}</div>";
-    @Html.Raw(post.Html.Insert(headerEnd, footer))
+
+    var headingFooter = $"<div class=\"heading-footer\">{post.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)}</div>";
+    string finalBody;
+    if (post.H1IsMissing)
+    {
+        var h1html = $"<h1>{post.Title}</h1>\n" + headingFooter;
+        finalBody = h1html + post.Html;
+    }
+    else
+    {
+        var headerEnd = post.Html.IndexOf("</h1>", StringComparison.Ordinal) + 5;
+        finalBody = post.Html.Insert(headerEnd, headingFooter);
+    }
+    @Html.Raw(finalBody)
+    ;
 }
 else
 {
