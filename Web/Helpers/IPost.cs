@@ -11,7 +11,7 @@
         [CanBeNull] string Html { get; }
 
         bool Exists { get; }
-        
+
         string Errors { get; }
         string Description { get; set; }
     }
