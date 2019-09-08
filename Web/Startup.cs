@@ -33,7 +33,7 @@ namespace t3hmun.WebLog.Web
 
             if (_env.IsDevelopment()) mvcServiceBuilder.AddRazorRuntimeCompilation();
 
-            services.AddSingleton<IPostProvider, PostProvider>();
+            services.AddSingleton<IPostProvider, MdPostProvider>();
             services.AddSingleton<IFileProvider>(provider =>
                 new PhysicalFileProvider(provider.GetService<IWebHostEnvironment>().ContentRootPath));
         }

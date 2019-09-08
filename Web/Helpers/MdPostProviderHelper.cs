@@ -2,11 +2,20 @@
 {
     using System;
     using System.Text.Json;
+    using System.Text.RegularExpressions;
     using JetBrains.Annotations;
 
-    public class PreambleProcessor
+    public static class MdPostProviderHelper
     {
-        public static void JsonPreamble([NotNull] ref string md, [NotNull] IPost post)
+        public static bool HasH1 (string md)
+        {
+            var hashH1Finder = new Regex("(^#[^#])(.+$)", RegexOptions.Multiline);
+            var underlinedH1Finder = new Regex("(^.+$)\n(^[=]+ *$)", RegexOptions.Multiline);
+
+            return hashH1Finder.IsMatch(md) || underlinedH1Finder.IsMatch(md);
+        }
+        
+        public static void ParseAndRemoveJsonPreamble([NotNull] ref string md, [NotNull] IPost post)
         {
             if (!md.StartsWith("{")) return;
 

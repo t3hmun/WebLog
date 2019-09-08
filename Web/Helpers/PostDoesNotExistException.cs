@@ -2,11 +2,12 @@
 {
     using System;
 
-    public class ParseException : Exception
+    public class PostDoesNotExistException: Exception
     {
         //TODO: Fields for structured logging.
-        public ParseException(string message) : base(message)
+        public PostDoesNotExistException(string message): base(message)
         {
+            
         }
     }
 }

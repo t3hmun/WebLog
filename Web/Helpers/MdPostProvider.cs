@@ -3,20 +3,16 @@
     using System;
     using System.Globalization;
     using System.IO;
-    using System.Text.RegularExpressions;
     using System.Threading.Tasks;
     using Markdig;
     using Microsoft.Extensions.FileProviders;
 
-    public class PostProvider : IPostProvider
+    public class MdPostProvider : IPostProvider
     {
         private readonly IFileProvider _fileProvider;
-
-        // TODO: Move regex out and unit test.
-        private readonly Regex _findH1 = new Regex(@"(^#[^#])|(""(=)+\s*((\n|(\r\n)))\s*$)", RegexOptions.Multiline);
         private readonly MarkdownPipeline _pipeline;
 
-        public PostProvider(IFileProvider fileProvider)
+        public MdPostProvider(IFileProvider fileProvider)
         {
             _fileProvider = fileProvider;
             var builder = new MarkdownPipelineBuilder();
@@ -33,6 +29,8 @@
         public async Task<IPost> TryGetPost(string rawPostTitle)
         {
             var file = _fileProvider.GetFileInfo($"md/post/{rawPostTitle}.md");
+            if (!file.Exists) throw new PostDoesNotExistException($"title: {rawPostTitle}");
+
             var post = new Post
             {
                 Title = ExtractTitle(rawPostTitle),
@@ -40,23 +38,21 @@
                 Html = null,
                 Errors = null
             };
-            if (file.Exists)
+            var rawFile = await ReadFile(file);
+
+            var md = rawFile;
+            MdPostProviderHelper.ParseAndRemoveJsonPreamble(ref md, post);
+
+            try
             {
-                var rawFile = await ReadFile(file);
-
-                var md = rawFile;
-                PreambleProcessor.JsonPreamble(ref md, post);
-
-                try
-                {
-                    post.Html = Parse(md);
-                    post.H1IsMissing = !_findH1.IsMatch(post.Html);
-                }
-                catch (Exception e)
-                {
-                    //TODO: LOG errors.
-                    post.Errors = e.Message;
-                }
+                post.Html = Parse(md);
+                post.H1IsMissing = MdPostProviderHelper.HasH1(post.Html);
+            }
+            catch (Exception e)
+            {
+                //TODO: LOG errors.
+                //TODO: This should probably throw and fall through to a generic error?
+                post.Errors = e.Message;
             }
 
             return post;
