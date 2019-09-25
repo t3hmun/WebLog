@@ -3,6 +3,7 @@
     using System;
     using System.Globalization;
     using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
     using Markdig;
     using Microsoft.Extensions.FileProviders;
@@ -11,6 +12,8 @@
     {
         private readonly IFileProvider _fileProvider;
         private readonly MarkdownPipeline _pipeline;
+
+        private const string MdDir = "md/post/";
 
         public MdPostProvider(IFileProvider fileProvider)
         {
@@ -28,7 +31,7 @@
 
         public async Task<IPost> TryGetPost(string rawPostTitle)
         {
-            var file = _fileProvider.GetFileInfo($"md/post/{rawPostTitle}.md");
+            var file = _fileProvider.GetFileInfo($"{MdDir}{rawPostTitle}.md");
             if (!file.Exists) throw new PostDoesNotExistException($"title: {rawPostTitle}");
 
             var post = new Post
@@ -62,7 +65,7 @@
         private static async Task<string> ReadFile(IFileInfo file)
         {
             string md;
-            using (var stream = file.CreateReadStream())
+            await using (var stream = file.CreateReadStream())
             {
                 using (var sr = new StreamReader(stream))
                 {

@@ -5,5 +5,7 @@
     public interface IPostProvider
     {
         Task<IPost> TryGetPost(string rawPostTitle);
+
+        Task<IPostSummary[]> GetPostList();
     }
 }
