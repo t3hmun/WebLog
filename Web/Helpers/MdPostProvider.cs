@@ -1,19 +1,25 @@
 ﻿namespace t3hmun.WebLog.Web.Helpers
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
-    using System.Linq;
+    using System.Text.RegularExpressions;
     using System.Threading.Tasks;
     using Markdig;
     using Microsoft.Extensions.FileProviders;
 
+    /// <remarks>
+    ///     There is 0 caching in this class. This is designed to be maintainable, not efficient.
+    ///     Caching can be implemented at a much higher level, a separate responsibility, this code remains ignorant.
+    ///     As a result of caching this code won't run enough for a few ms of efficiency to matter at all.
+    /// </remarks>
     public class MdPostProvider : IPostProvider
     {
+        private const string MdDir = "md/post/";
+        public static readonly Regex ValidFilenames = new Regex(@".*(^(readme)\.md)$", RegexOptions.IgnoreCase);
         private readonly IFileProvider _fileProvider;
         private readonly MarkdownPipeline _pipeline;
-
-        private const string MdDir = "md/post/";
 
         public MdPostProvider(IFileProvider fileProvider)
         {
@@ -34,6 +40,28 @@
             var file = _fileProvider.GetFileInfo($"{MdDir}{rawPostTitle}.md");
             if (!file.Exists) throw new PostDoesNotExistException($"title: {rawPostTitle}");
 
+            var post = await ReadAndParsePost(rawPostTitle, file);
+
+            return post;
+        }
+
+        public async IAsyncEnumerable<IPostSummary> GetPostList()
+        {
+            var files = _fileProvider.GetDirectoryContents(MdDir);
+            var validFilenames = ValidFilenames;
+            foreach (var file in files)
+            {
+                if (!validFilenames.IsMatch(file.Name)) continue;
+                // These files are never big, the mental overhead of only reading the summary is not worth it.
+
+                var rawPostTitle = file.Name;
+                var post = await ReadAndParsePost(rawPostTitle, file);
+                yield return post;
+            }
+        }
+
+        private async Task<Post> ReadAndParsePost(string rawPostTitle, IFileInfo file)
+        {
             var post = new Post
             {
                 Title = ExtractTitle(rawPostTitle),

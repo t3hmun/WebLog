@@ -67,5 +67,29 @@
             var actual = MdPostProviderHelper.HasH1(sut);
             Assert.AreEqual(true, actual);
         }
+
+        [TestMethod]
+        [DataRow("path/some post.txt")]
+        [DataRow("path/readme.md")]
+        [DataRow("path/README.MD")]
+        [DataRow("some post.txt")]
+        [DataRow("readme.md")]
+        [DataRow("README.MD")]
+        public void TestValidFileNames_DoesNotMatchInValidFiles(string sut)
+        {
+            var actual = MdPostProvider.ValidFilenames.IsMatch(sut);
+            Assert.IsFalse(actual);
+        }
+
+        [TestMethod]
+        [DataRow("some post.md")]
+        [DataRow("SOME POST.MD")]
+        [DataRow("path/some post.md")]
+        [DataRow("path/SOME POST.MD")]
+        public void TestValidFileNames_MatchesValidFiles(string sut)
+        {
+            var actual = MdPostProvider.ValidFilenames.IsMatch(sut);
+            Assert.IsTrue(actual);
+        }
     }
 }
