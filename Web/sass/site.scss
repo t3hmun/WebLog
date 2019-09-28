@@ -16,7 +16,7 @@ $min: 1px;
 // In order to make it consistent it must be a px size.
 // Normal zoom works fine with this.
 // One compromise is that text-only zoom will be a disaster with this absolute line-height.
-$line-height: round($base * 1.6);
+$line-height: round($base * 1.5);
 
 // Gutter is the space from edge of screen. 
 // Fixed to look neat on all sizes without wasting screen space.
@@ -28,12 +28,12 @@ $vspace: $line-height;
 // I want roughly 60 characters per line for hard reading.
 // Normal fonts have a height width raio of around 2.2:1
 // The height is multiplied to achieve a rough CPL.
-$reading-width: $base * 27;
+$reading-width: $base * 35;
 
 // This is the max with for any content, including large images, code and titles.
 // These kinds of content like to exploit as much space as possible.
 // However using more than double the reading width looks clumsy and confusing.
-$content-width: $reading-width * 2.5;
+$content-width: $reading-width * 2.0;
 
 // Other text is things like bullets and blockquotes.
 // Bullets enjoy longer lines, better flow, they already have visual aids to help the eye.
@@ -66,9 +66,9 @@ $bullet-padding: $base;
 
 // h#, font-size, color, line-height, border color, shadow-bottom size, shadow-right size
 $headingMap: (h1, 3.0 * $base, $highlight-colour, $line-height * 3, $highlight-colour, 0, 0),
-        (h2, 2.0 * $base, mix($text-colour, $highlight-colour, 0%), $line-height * 2, $highlight-colour, $min*3, $min*3),
-        (h3, 1.5 * $base, mix($text-colour, $highlight-colour, 25%), $line-height * 2, $highlight-colour, $min*3, $min*0),
-        (h4, 1.2 * $base, mix($text-colour, $highlight-colour, 30%), $line-height * 2, $highlight-colour, $min*2, $min*2),
+        (h2, 2.5 * $base, mix($text-colour, $highlight-colour, 0%), $line-height * 3, $highlight-colour, $min*3, $min*3),
+        (h3, 2.0 * $base, mix($text-colour, $highlight-colour, 25%), $line-height * 2, $highlight-colour, $min*3, $min*0),
+        (h4, 1.5 * $base, mix($text-colour, $highlight-colour, 30%), $line-height * 2, $highlight-colour, $min*2, $min*2),
         (h5, 1.0 * $base, mix($text-colour, $highlight-colour, 45%), $line-height * 1, $highlight-colour, $min*2, $min*0),
         (h6, 1.0 * $base, mix($text-colour, $highlight-colour, 60%), $line-height * 1, $subtle-fore-colour, $min*1, 0)
 ;

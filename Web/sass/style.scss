@@ -339,6 +339,27 @@ img {
 }
 
 
+.index-item{
+    .index-item-heading {
+        h2 {
+            margin: $line-height 0 5px 0;
+            padding-top: $line-height;
+            a:hover {
+                color: $link-colour;
+            }
+        }
+    }
+    
+    .index-item-date{
+        
+    }
+    
+    .index-item-description{
+        
+    }
+}
+
+
 // The following three divs are for resizing element to fit different widths.
 // They can be inserted into Markdown using `{: .other-text-width }` to add the appropriate div to the most recent block.
 .reading-width {

@@ -12,16 +12,16 @@
 
 @foreach (var summary in Model.PostSummaries.OrderByDescending(p=>p.Date))
 {
-    <div>
-        <div>
-            <div>
-                <a href="@(summary.Link)"><h2>@(summary.Title)</h2></a>
-            </div>
-            <div>
+    <div class="index-item">
+        <div class="index-item-heading">
+            <h2>
+                <a href="@(summary.Link)">@(summary.Title)</a>
+            </h2>
+        </div>
+            <div class="index-item-date">
                 <span>@summary.Date.ToString("D", CultureInfo.InvariantCulture)</span>
             </div>
-        </div>
-        <div>
+        <div class="index-item-description">
             <p>
                 @(summary.Description)
             </p>
