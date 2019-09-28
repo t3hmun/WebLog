@@ -26,49 +26,6 @@
         }
 
         [TestMethod]
-        [DataRow("#A h1")]
-        [DataRow("#   A h1 with whitespace   ")]
-        [DataRow("#A h1\nBody Text\nMore stuff")]
-        [DataRow("\n#A h1")]
-        [DataRow("{\"description\":\"lalala\"}\n#A h1")]
-        [DataRow("{\"description\":\"lalala\"}\n#A h1\n\nBody text\nMore stuff")]
-        [DataRow("{\"description\":\"lalala\"}\n\n#A h1\n\nBody text\nMore stuff")]
-        [DataRow("#A h1")]
-        public void TestHasH1_ValidHashH1s(string sut)
-        {
-            var actual = MdPostProviderHelper.GetH1FromMd(sut);
-            Assert.AreEqual(true, actual);
-        }
-
-        [TestMethod]
-        [DataRow("##A h2")]
-        [DataRow("##   A h2 with whitespace   ")]
-        [DataRow("##A h2\nBody Text\nMore stuff")]
-        [DataRow("\n##A h2")]
-        [DataRow("{\"description\":\"lalala\"}\n##A h2")]
-        [DataRow("{\"description\":\"lalala\"}\n##A h2\n\nBody text\nMore stuff")]
-        [DataRow("{\"description\":\"lalala\"}\n\n##A h2\n\nBody text\nMore stuff")]
-        [DataRow("##A h2")]
-        public void TestHasH1_H2Headings(string sut)
-        {
-            var actual = MdPostProviderHelper.GetH1FromMd(sut);
-            Assert.AreEqual(false, actual);
-        }
-
-        [TestMethod]
-        [DataRow("An h1 heading\n======")]
-        [DataRow("An h1 heading\n======\n\nbody text\nMore body")]
-        [DataRow("\nAn h1 heading\n======")]
-        [DataRow("\n\nAn h1 heading\n======\n\nbody text\nMore body")]
-        [DataRow("{\"description\":\"lalala\"}\nAn h1 heading\n======")]
-        [DataRow("{\"description\":\"lalala\"}\n\nAn h1 heading\n======\n\nbody text\nMore body")]
-        public void TestHasH1_ValidUnderlineH1(string sut)
-        {
-            var actual = MdPostProviderHelper.GetH1FromMd(sut);
-            Assert.AreEqual(true, actual);
-        }
-
-        [TestMethod]
         [DataRow("path/2015-10-22-some post.txt")]
         [DataRow("path/readme.md")]
         [DataRow("path/README.MD")]
