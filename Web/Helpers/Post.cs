@@ -11,5 +11,6 @@
         public bool Exists => Html != null;
         public string Errors { get; set; }
         public string Description { get; set; }
+        public string Link { get; set; }
     }
 }

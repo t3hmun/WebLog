@@ -7,12 +7,24 @@
 
     public static class MdPostProviderHelper
     {
-        public static bool HasH1 (string md)
-        {
-            var hashH1Finder = new Regex("(^#[^#])(.+$)", RegexOptions.Multiline);
-            var underlinedH1Finder = new Regex("(^.+$)\n(^[=]+ *$)", RegexOptions.Multiline);
+        public static readonly Regex HashH1Finder = new Regex("(^#[^#])(.+$)", RegexOptions.Multiline);
+        public static readonly Regex UnderlinedH1Finder = new Regex("(^.+$)\n(^[=]+ *$)", RegexOptions.Multiline);
 
-            return hashH1Finder.IsMatch(md) || underlinedH1Finder.IsMatch(md);
+        public static string GetH1FromMd (string md)
+        {
+            var hashH1 = HashH1Finder.Match(md);
+            if (hashH1.Success)
+            {
+                return hashH1.Groups[2].Value;
+            }
+
+            var underlineH1 = UnderlinedH1Finder.Match(md);
+            if (underlineH1.Success)
+            {
+                return underlineH1.Groups[1].Value;
+            }
+
+            return null;
         }
         
         public static void ParseAndRemoveJsonPreamble([NotNull] ref string md, [NotNull] IPost post)

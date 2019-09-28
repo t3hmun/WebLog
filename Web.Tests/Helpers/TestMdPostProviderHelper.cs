@@ -36,7 +36,7 @@
         [DataRow("#A h1")]
         public void TestHasH1_ValidHashH1s(string sut)
         {
-            var actual = MdPostProviderHelper.HasH1(sut);
+            var actual = MdPostProviderHelper.GetH1FromMd(sut);
             Assert.AreEqual(true, actual);
         }
 
@@ -51,7 +51,7 @@
         [DataRow("##A h2")]
         public void TestHasH1_H2Headings(string sut)
         {
-            var actual = MdPostProviderHelper.HasH1(sut);
+            var actual = MdPostProviderHelper.GetH1FromMd(sut);
             Assert.AreEqual(false, actual);
         }
 
@@ -64,7 +64,7 @@
         [DataRow("{\"description\":\"lalala\"}\n\nAn h1 heading\n======\n\nbody text\nMore body")]
         public void TestHasH1_ValidUnderlineH1(string sut)
         {
-            var actual = MdPostProviderHelper.HasH1(sut);
+            var actual = MdPostProviderHelper.GetH1FromMd(sut);
             Assert.AreEqual(true, actual);
         }
 

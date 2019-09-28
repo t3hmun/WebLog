@@ -7,5 +7,6 @@
         string Title { get; }
         DateTime Date { get; }
         string Description { get; set; }
+        string Link { get; set; }
     }
 }
