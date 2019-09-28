@@ -1,4 +1,27 @@
 @page
 @model t3hmun.WebLog.Web.Pages.HomeModel
 
-Hello
+<div>
+    <p>
+        @(Model.MessageOfTheDay)
+    </p>
+</div>
+
+@foreach (var summary in Model.PostSummaries)
+{
+    <div>
+        <div>
+            <div>
+                <a href=""><h2>@(summary.Title)</h2></a>
+            </div>
+            <div>
+                <span>@(summary.Date)</span>
+            </div>
+        </div>
+        <div>
+            <p>
+                @(summary.Description)
+            </p>
+        </div>
+    </div>
+}

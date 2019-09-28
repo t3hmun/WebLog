@@ -7,7 +7,12 @@
 
     public class PostModel : BaseModel
     {
-        public const string RawTitleRouteString = "page-title";
+        /// <summary>Base route for generating links to posts - used in server route setup.</summary>
+        public const string RouteBase = "Post";
+
+        /// <summary>Var name of the post title segment of the route - used in server route setup.</summary>
+        public const string RawTitleRoute = "page-title";
+
         private readonly IPostProvider _postProvider;
 
         public PostModel(IPostProvider postProvider)
@@ -21,7 +26,7 @@
         [UsedImplicitly]
         public async Task OnGet()
         {
-            var rawPageTitle = RouteData.Values[RawTitleRouteString].ToString();
+            var rawPageTitle = RouteData.Values[RawTitleRoute].ToString();
             Post = await _postProvider.TryGetPost(rawPageTitle);
         }
     }

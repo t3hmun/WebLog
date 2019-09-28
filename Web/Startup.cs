@@ -28,7 +28,7 @@ namespace t3hmun.WebLog.Web
                 options.Conventions.AddPageRoute($"/{BaseModel.ModelName(typeof(HomeModel))}", "");
                 options.Conventions.AddPageRoute(
                     $"/{BaseModel.ModelName(typeof(PostModel))}",
-                    "~/post/{" + PostModel.RawTitleRouteString + "}/");
+                    "~/" + PostModel.RouteBase + "/{" + PostModel.RawTitleRoute + "}/");
             });
 
             if (_env.IsDevelopment()) mvcServiceBuilder.AddRazorRuntimeCompilation();

@@ -69,7 +69,7 @@
         }
 
         [TestMethod]
-        [DataRow("path/some post.txt")]
+        [DataRow("path/2015-10-22-some post.txt")]
         [DataRow("path/readme.md")]
         [DataRow("path/README.MD")]
         [DataRow("some post.txt")]
@@ -82,10 +82,10 @@
         }
 
         [TestMethod]
-        [DataRow("some post.md")]
-        [DataRow("SOME POST.MD")]
-        [DataRow("path/some post.md")]
-        [DataRow("path/SOME POST.MD")]
+        [DataRow("2015-10-22-some post.md")]
+        [DataRow("2015-10-22-SOME POST.MD")]
+        [DataRow("path/2015-10-22-some post.md")]
+        [DataRow("path/2015-10-22-SOME POST.MD")]
         public void TestValidFileNames_MatchesValidFiles(string sut)
         {
             var actual = MdPostProvider.ValidFilenames.IsMatch(sut);

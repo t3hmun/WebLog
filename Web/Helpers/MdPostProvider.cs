@@ -17,7 +17,7 @@
     public class MdPostProvider : IPostProvider
     {
         private const string MdDir = "md/post/";
-        public static readonly Regex ValidFilenames = new Regex(@".*(^(readme)\.md)$", RegexOptions.IgnoreCase);
+        public static readonly Regex ValidFilenames = new Regex(@".*\d\d\d\d-\d\d-\d\d-.*\.md", RegexOptions.IgnoreCase);
         private readonly IFileProvider _fileProvider;
         private readonly MarkdownPipeline _pipeline;
 
