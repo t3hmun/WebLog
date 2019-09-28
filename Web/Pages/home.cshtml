@@ -1,5 +1,8 @@
 @page
+@using System.Globalization
 @model t3hmun.WebLog.Web.Pages.HomeModel
+
+<h1>Home</h1>
 
 <div>
     <p>
@@ -7,7 +10,7 @@
     </p>
 </div>
 
-@foreach (var summary in Model.PostSummaries)
+@foreach (var summary in Model.PostSummaries.OrderByDescending(p=>p.Date))
 {
     <div>
         <div>
@@ -15,7 +18,7 @@
                 <a href="@(summary.Link)"><h2>@(summary.Title)</h2></a>
             </div>
             <div>
-                <span>@(summary.Date)</span>
+                <span>@summary.Date.ToString("D", CultureInfo.InvariantCulture)</span>
             </div>
         </div>
         <div>

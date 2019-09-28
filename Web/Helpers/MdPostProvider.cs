@@ -48,13 +48,14 @@
         public async Task<IPost> TryGetPost(string rawPostTitle)
         {
             var cleanTitle = SanitiseAndDecodeTitle(rawPostTitle);
+            
             var file = _fileProvider.GetFileInfo($"{MdDir}{cleanTitle}.md");
             if (!file.Exists)
             {
                 throw new PostDoesNotExistException($"title: {rawPostTitle}, cleaned: {cleanTitle}");
             }
 
-            var post = await ReadAndParsePost(rawPostTitle, file);
+            var post = await ReadAndParsePost(cleanTitle, file);
 
             return post;
         }
@@ -68,22 +69,25 @@
                 if (!validFilenames.IsMatch(file.Name)) continue;
                 // These files are never big, the mental overhead of only reading the summary is not worth it.
 
-                var rawPostTitle = file.Name;
-                var post = await ReadAndParsePost(rawPostTitle, file);
+                
+                var filePostTitle = file.Name.Substring(0, file.Name.Length - 3);
+                var post = await ReadAndParsePost(filePostTitle, file);
                 yield return post;
             }
         }
 
-        private async Task<Post> ReadAndParsePost(string rawPostTitle, IFileInfo file)
+        private async Task<Post> ReadAndParsePost(string plainTextPostTitle, IFileInfo file)
         {
-            var plainTextPostTitle = SanitiseAndDecodeTitle(rawPostTitle);
             var post = new Post
             {
+                // This title could be overwritten by one found in the HTML.
+                // However it's handy to set now in-case the HTM has errors.
                 Title = ExtractTitle(plainTextPostTitle),
                 Date = ExtractDate(plainTextPostTitle),
                 Link = $"{PostModel.RouteBase}/{plainTextPostTitle}/",
                 Html = null,
-                Errors = null
+                Errors = null,
+                H1IsMissing = true
             };
             var rawFile = await ReadFile(file);
 
@@ -102,9 +106,14 @@
                 return post;
             }
 
-            var h1 = MdPostProviderHelper.GetH1FromMd(md);
-            post.H1IsMissing = !MdPostProviderHelper.GetH1FromMd(post.Html);
+            var h1Text = MdPostProviderHelper.GetH1FromHtml(post.Html);
 
+            if (h1Text != null)
+            {
+                post.H1IsMissing = false;
+                post.Title = h1Text;
+            }
+            
             return post;
         }
 

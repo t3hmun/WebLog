@@ -1,32 +1,40 @@
 ﻿namespace t3hmun.WebLog.Web.Helpers
 {
     using System;
+    using System.Net;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using JetBrains.Annotations;
 
     public static class MdPostProviderHelper
     {
-        public static readonly Regex HashH1Finder = new Regex("(^#[^#])(.+$)", RegexOptions.Multiline);
-        public static readonly Regex UnderlinedH1Finder = new Regex("(^.+$)\n(^[=]+ *$)", RegexOptions.Multiline);
+        private static readonly Regex H1InHtml =
+            new Regex(@"<h1>(.*?)</h1>", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
 
-        public static string GetH1FromMd (string md)
+        private static readonly Regex HtmlTags = new Regex(@"<.*?>");
+
+        /// <summary>
+        ///     Extracts plaintext content of the first H1 tag if it exists, otherwise null.
+        /// </summary>
+        /// <param name="html">The HTML of the file to find H1 in.</param>
+        /// <returns>The plaintext of the </returns>
+        public static string GetH1FromHtml(string html)
         {
-            var hashH1 = HashH1Finder.Match(md);
-            if (hashH1.Success)
-            {
-                return hashH1.Groups[2].Value;
-            }
+            var match = H1InHtml.Match(html);
 
-            var underlineH1 = UnderlinedH1Finder.Match(md);
-            if (underlineH1.Success)
+            if (match.Success)
             {
-                return underlineH1.Groups[1].Value;
+                var h1Html = match.Groups[1].Value;
+                // I don't want to keep any html formatting, trying to transplant text with formatting is madness.
+                var stripHtml = HtmlTags.Replace(h1Html, "");
+                var decoded = WebUtility.HtmlDecode(stripHtml);
+                return decoded;
             }
 
             return null;
         }
-        
+
+
         public static void ParseAndRemoveJsonPreamble([NotNull] ref string md, [NotNull] IPost post)
         {
             if (!md.StartsWith("{")) return;
@@ -50,9 +58,7 @@
             }
 
             if (finalIndex == 0)
-            {
                 throw new ParseException($"Failed to find the end of the JSon preamble for {post.Date}-{post.Title} ");
-            }
 
             var newlineAfterJson = md.IndexOf("\n", finalIndex + 1, StringComparison.Ordinal);
             var json = md.Substring(0, finalIndex + 1);
