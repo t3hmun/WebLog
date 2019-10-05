@@ -16,13 +16,7 @@ steps:
 
 - task: DotNetCoreInstaller@0
   inputs:
-    version: '2.1.300' 
-
-- task: UseDotNet@2
-  inputs:
-    packageType: 'sdk'
-    version: '3.0'
-    includePreviewVersions: true
+    version: '3.0' 
 
 - task: DotNetCoreCLI@2
   inputs:
