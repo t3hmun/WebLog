@@ -17,7 +17,7 @@ Made a markdown parsing site for ASP Core 3.
 
 Shoved it in docker and launched it on Azure.
 
-## Phase 3 - Made Updates Practical [In Progress]
+## Phase 3 - Make Updates Practical [In Progress]
 
 The MD files are in a git repo. I was thinking of making it update by checking out the git repo.
 But then I realised that this would be prone to all sorts of locking and sync issues.
@@ -47,13 +47,13 @@ So somehow I want to:
     
     
 
-Phase 4 - Caching
+## Phase 4 - Caching
 
 I can get away with no sane caching since I have no traffic.
 
 * Use the simple ASP Core memory caching
 * Try out Redis ()
 
-Phase 5 - AWS / GoogleCloud anywhere else
+## Phase 5 - AWS / GoogleCloud anywhere else
 
 It'll be a bunch of Docker containers that magically on another cloud provider...
